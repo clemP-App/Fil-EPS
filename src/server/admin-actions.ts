@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import {
   ADMIN_COOKIE,
   clearLoginAttempts,
@@ -66,6 +66,7 @@ export async function updateSourceAction(formData: FormData) {
     enabled: formData.get("enabled") === "on",
     config,
   });
+  revalidateTag("journal");
   revalidatePath("/");
   revalidatePath("/sources");
   redirect("/admin?enregistre=1");
@@ -94,6 +95,7 @@ export async function createSourceAction(formData: FormData) {
   } catch {
     redirect("/admin?erreur=existe");
   }
+  revalidateTag("journal");
   revalidatePath("/sources");
   redirect("/admin?enregistre=1");
 }
@@ -121,6 +123,7 @@ export async function classificationAction(formData: FormData) {
       true,
     );
   }
+  revalidateTag("journal");
   revalidatePath("/");
   revalidatePath(`/publication/${id}`);
   revalidatePath("/admin/publications");

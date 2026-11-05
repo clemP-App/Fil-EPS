@@ -18,6 +18,21 @@ import type {
 } from "@/lib/types";
 import { canonicalUrl, likePattern } from "@/lib/url";
 
+type SourceSyncRow = {
+  id: string;
+  slug: string;
+  customized: number | string;
+  name: string;
+  kind: string;
+  region_group: string;
+  homepage_url: string | null;
+  feed_url: string | null;
+  collect_method: string;
+  config_json: string;
+  enabled: number | string;
+  status: string;
+};
+
 type PublicationRow = {
   id: string;
   source_id: string;
@@ -127,11 +142,13 @@ export function createRepository(sql: Sql) {
 
     async ensureSources(definitions: SourceDefinition[]) {
       const now = new Date().toISOString();
+      const rows = await sql.all<SourceSyncRow>(
+        `SELECT id, slug, customized, name, kind, region_group, homepage_url, feed_url, collect_method, config_json, enabled, status
+         FROM sources`,
+      );
+      const bySlug = new Map(rows.map((row) => [row.slug, row]));
       for (const definition of definitions) {
-        const existing = await sql.get<{ id: string; customized: number | string }>(
-          "SELECT id, customized FROM sources WHERE slug = $1",
-          [definition.slug],
-        );
+        const existing = bySlug.get(definition.slug);
         const config = JSON.stringify(definition.config ?? {});
         if (!existing) {
           await sql.run(
@@ -157,6 +174,7 @@ export function createRepository(sql: Sql) {
           continue;
         }
         if (Number(existing.customized) === 1) {
+          if (existing.name === definition.name && existing.kind === definition.kind && existing.region_group === definition.regionGroup) continue;
           await sql.run("UPDATE sources SET name = $1, kind = $2, region_group = $3, updated_at = $4 WHERE id = $5", [
             definition.name,
             definition.kind,
@@ -166,6 +184,19 @@ export function createRepository(sql: Sql) {
           ]);
           continue;
         }
+        const enabled = definition.enabled ? 1 : 0;
+        const nextStatus = enabled === 1 && existing.status === "unconfigured" ? "pending" : enabled === 0 ? "unconfigured" : existing.status;
+        const unchanged =
+          existing.name === definition.name &&
+          existing.kind === definition.kind &&
+          existing.region_group === definition.regionGroup &&
+          (existing.homepage_url ?? null) === (definition.homepageUrl ?? null) &&
+          (existing.feed_url ?? null) === (definition.feedUrl ?? null) &&
+          existing.collect_method === definition.method &&
+          existing.config_json === config &&
+          Number(existing.enabled) === enabled &&
+          existing.status === nextStatus;
+        if (unchanged) continue;
         await sql.run(
           `UPDATE sources
            SET name = $1, kind = $2, region_group = $3, homepage_url = $4, feed_url = $5,
@@ -665,10 +696,20 @@ export function createRepository(sql: Sql) {
   };
 
   async function seedTerms() {
-    for (const term of THEMES) await sql.run("INSERT INTO themes (slug, label) VALUES ($1, $2) ON CONFLICT (slug) DO UPDATE SET label = $2", [term.slug, term.label]);
-    for (const term of APSAS) await sql.run("INSERT INTO apsas (slug, label) VALUES ($1, $2) ON CONFLICT (slug) DO UPDATE SET label = $2", [term.slug, term.label]);
-    for (const term of LEVELS) await sql.run("INSERT INTO levels (slug, label) VALUES ($1, $2) ON CONFLICT (slug) DO UPDATE SET label = $2", [term.slug, term.label]);
-    for (const term of CONTENT_TYPES) await sql.run("INSERT INTO content_types (slug, label) VALUES ($1, $2) ON CONFLICT (slug) DO UPDATE SET label = $2", [term.slug, term.label]);
+    await upsertTerms("themes", THEMES);
+    await upsertTerms("apsas", APSAS);
+    await upsertTerms("levels", LEVELS);
+    await upsertTerms("content_types", CONTENT_TYPES);
+  }
+
+  async function upsertTerms(table: "themes" | "apsas" | "levels" | "content_types", terms: Array<{ slug: string; label: string }>) {
+    if (terms.length === 0) return;
+    const binder = new Binder();
+    const values = terms.map((term) => `(${binder.add(term.slug)}, ${binder.add(term.label)})`).join(", ");
+    await sql.run(
+      `INSERT INTO ${table} (slug, label) VALUES ${values} ON CONFLICT (slug) DO UPDATE SET label = EXCLUDED.label`,
+      binder.values,
+    );
   }
 
   async function hydrate(rows: PublicationRow[]): Promise<Publication[]> {

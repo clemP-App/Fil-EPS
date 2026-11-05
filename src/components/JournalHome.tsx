@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 import { FilterPanel } from "@/components/FilterPanel";
 import { Story } from "@/components/Story";
 import { formatDateTime } from "@/lib/dates";
@@ -8,21 +9,33 @@ import { countLabel } from "@/lib/format";
 import { getRepository } from "@/lib/app-db";
 import { RUBRICS } from "@/lib/taxonomy";
 
+const loadJournalHome = unstable_cache(
+  async () => {
+    const repo = await getRepository();
+    const [stats, recent, sources] = await Promise.all([
+      repo.stats(),
+      repo.listPublications({ page: 1, pageSize: 60, sort: "date" }),
+      repo.listSources(),
+    ]);
+    const featured = selectFeatured(recent.items);
+    const exclude = [featured.lead?.id, ...featured.secondary.map((item) => item.id)].filter((id): id is string => Boolean(id));
+    const rubricResults = await Promise.all(
+      RUBRICS.map(async (rubric) => ({ rubric, items: await repo.listRubric(rubric, 3, exclude) })),
+    );
+    return {
+      stats,
+      featured,
+      rubrics: rubricResults.filter((entry) => entry.items.length > 0),
+      enabledCount: sources.filter((source) => source.enabled).length,
+      sourceCount: sources.length,
+    };
+  },
+  ["journal-home"],
+  { revalidate: 300, tags: ["journal"] },
+);
+
 export async function JournalHome() {
-  const repo = await getRepository();
-  const [stats, recent, sources] = await Promise.all([
-    repo.stats(),
-    repo.listPublications({ page: 1, pageSize: 60, sort: "date" }),
-    repo.listSources(),
-  ]);
-  const featured = selectFeatured(recent.items);
-  const exclude = [featured.lead?.id, ...featured.secondary.map((item) => item.id)].filter((id): id is string => Boolean(id));
-  const rubrics = [];
-  for (const rubric of RUBRICS) {
-    const items = await repo.listRubric(rubric, 3, exclude);
-    if (items.length > 0) rubrics.push({ rubric, items });
-  }
-  const enabled = sources.filter((source) => source.enabled);
+  const { stats, featured, rubrics, enabledCount, sourceCount } = await loadJournalHome();
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-8">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -40,7 +53,7 @@ export async function JournalHome() {
         <section className="surface p-6">
           <h2 className="text-3xl font-extrabold tracking-tight">Aucune publication collectée</h2>
           <p className="mt-2 max-w-2xl">Le journal n’affiche pas d’exemples fictifs. Lancez une synchronisation pour interroger les sources dont l’adresse a été vérifiée.</p>
-          <p className="mt-3 text-sm text-muted">{countLabel(enabled.length, "source activée", "sources activées")} sur {sources.length} académies et organismes prévus.</p>
+          <p className="mt-3 text-sm text-muted">{countLabel(enabledCount, "source activée", "sources activées")} sur {sourceCount} académies et organismes prévus.</p>
         </section>
       ) : (
         <>
@@ -83,7 +96,7 @@ export async function JournalHome() {
               ))}
               <section className="surface p-4">
                 <h2 className="text-lg font-bold tracking-tight">Sources</h2>
-                <p className="mt-2 text-sm text-muted">{countLabel(enabled.length, "site suivi", "sites suivis")}, académies et organismes nationaux.</p>
+                <p className="mt-2 text-sm text-muted">{countLabel(enabledCount, "site suivi", "sites suivis")}, académies et organismes nationaux.</p>
                 <Link href="/sources" className="mt-3 inline-block text-sm font-semibold text-pine no-underline hover:underline">Voir les sources</Link>
               </section>
             </aside>
