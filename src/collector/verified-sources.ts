@@ -21,6 +21,14 @@ export const VERIFIED_SOURCES: VerifiedSource[] = [
     config: {},
   },
   {
+    slug: "bordeaux",
+    homepageUrl: "https://blogacabdx.ac-bordeaux.fr/eps33/",
+    feedUrl: "https://blogacabdx.ac-bordeaux.fr/eps33/feed/",
+    method: "rss",
+    enabled: true,
+    config: {},
+  },
+  {
     slug: "lyon",
     homepageUrl: "https://eps.enseigne.ac-lyon.fr/spip/",
     feedUrl: "https://eps.enseigne.ac-lyon.fr/spip/spip.php?page=backend",

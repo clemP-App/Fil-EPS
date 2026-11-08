@@ -30,6 +30,7 @@ export function methodLabel(method: string): string {
 export function readableSourceError(message: string): string {
   const text = message.trim();
   if (/fetch failed|failed to fetch/i.test(text) || /^Échec réseau\b/i.test(text)) return "Le site n'a pas pu être consulté.";
+  if (/aborted due to timeout/i.test(text)) return "Le site a mis trop de temps à répondre.";
   if (/^Certificat expiré\b/.test(text)) return "Le certificat de sécurité du site a expiré.";
   if (/^Le certificat ne correspond pas\b/.test(text)) return "Le certificat de sécurité ne correspond pas à l'adresse du site.";
   if (/^Chaîne de certificat incomplète\b/.test(text)) return "Le certificat de sécurité du site est incomplet.";

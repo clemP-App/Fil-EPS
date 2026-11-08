@@ -243,6 +243,7 @@ describe("collecte", () => {
       "Le site eps.example n'a pas pu être consulté.",
     );
     expect(readableSourceError("fetch failed")).toBe("Le site n'a pas pu être consulté.");
+    expect(readableSourceError("The operation was aborted due to timeout")).toBe("Le site a mis trop de temps à répondre.");
     expect(readableSourceError("HTTP 503 pour https://pedagogie.ac-rennes.fr/spip.php?page=backend")).toBe(
       "Le site pedagogie.ac-rennes.fr est momentanément indisponible.",
     );
@@ -276,16 +277,16 @@ describe("filtres mémorisés", () => {
   it("laisse cochées les sources joignables et grise les autres", () => {
     expect(sourceBlockedReason("lyon")).toBeNull();
     expect(sourceBlockedReason("aeeps")).toBeNull();
-    expect(sourceBlockedReason("bordeaux")).toMatch(/académie/);
+    expect(sourceBlockedReason("bordeaux")).toBeNull();
     expect(sourceBlockedReason("eduscol")).toMatch(/source/);
-    expect(keptSlugs("academie", [])).not.toContain("bordeaux");
+    expect(keptSlugs("academie", [])).toContain("bordeaux");
   });
 
   it("reprend une veille ancienne comme des cases décochées", () => {
     const exclusions = migrateLegacyPrefs({ academies: ["lyon"], themes: [] });
     expect(exclusions.academie).toContain("besancon");
+    expect(exclusions.academie).toContain("bordeaux");
     expect(exclusions.academie).not.toContain("lyon");
-    expect(exclusions.academie).not.toContain("bordeaux");
     expect(exclusions.theme).toEqual([]);
     expect(resolveGroup([], [], ["lyon"], ["lyon", "nice"])).toEqual(["lyon"]);
     expect(exclusionsFromFilters({ ...EMPTY_FILTERS, academies: ["lyon"] }).academie).not.toContain("lyon");
