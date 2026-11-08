@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { SourceMark } from "@/components/SourceMark";
 import { formatDateTime } from "@/lib/dates";
-import { countLabel, methodLabel, statusLabel } from "@/lib/format";
+import { countLabel, methodLabel, readableSourceError, statusLabel } from "@/lib/format";
 import { getRepository } from "@/lib/app-db";
 import { REGION_LABELS } from "@/lib/taxonomy";
 
@@ -35,9 +36,14 @@ export default async function SourcesPage() {
                 {sources.filter((source) => source.regionGroup === group).map((source) => (
                   <tr key={source.id}>
                     <td>
-                      <p className="font-semibold">{source.name}</p>
-                      {source.homepageUrl ? <a className="text-sm text-pine underline" href={source.homepageUrl}>{source.homepageUrl}</a> : <p className="text-sm text-muted">Adresse non confirmée</p>}
-                      {source.lastError ? <p className="text-sm text-clay">{source.lastError}</p> : null}
+                      <div className="flex items-start gap-3">
+                        <SourceMark slug={source.slug} name={source.name} />
+                        <div className="min-w-0">
+                          <p className="font-semibold">{source.name}</p>
+                          {source.homepageUrl ? <a className="text-sm text-pine underline break-all" href={source.homepageUrl}>{source.homepageUrl}</a> : <p className="text-sm text-muted">Adresse non confirmée</p>}
+                          {source.lastError ? <p className="text-sm text-clay">{readableSourceError(source.lastError)}</p> : null}
+                        </div>
+                      </div>
                     </td>
                     <td>{source.enabled ? methodLabel(source.method) : "—"}</td>
                     <td>{statusLabel(source.status)}</td>

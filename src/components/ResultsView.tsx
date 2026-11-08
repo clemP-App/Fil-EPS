@@ -16,7 +16,7 @@ export async function ResultsView({ filters, pathname }: { filters: PublicFilter
         <h1 className="text-4xl font-extrabold tracking-tight">Recherche</h1>
         <p className="mt-2 text-muted">{countLabel(result.total, "publication", "publications")}</p>
       </header>
-      <FilterPanel filters={filters} action={pathname} />
+      <FilterPanel filters={filters} action={pathname} applyMemory />
       <ActiveFilters filters={filters} pathname={pathname} />
       {result.items.length === 0 ? (
         <p className="surface p-6">Aucune publication ne correspond à ces critères. Élargissez la période, retirez un filtre, ou vérifiez qu’une synchronisation a déjà eu lieu.</p>

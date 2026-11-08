@@ -1,5 +1,5 @@
 import { formatDateTime } from "@/lib/dates";
-import { statusLabel } from "@/lib/format";
+import { readableSourceError, statusLabel } from "@/lib/format";
 import { getRepository } from "@/lib/app-db";
 
 export const dynamic = "force-dynamic";
@@ -30,8 +30,8 @@ export default async function SyncJournalPage() {
                 <td>{formatDateTime(run.startedAt)}</td>
                 <td>
                   <p>{run.sourceName ?? "Ensemble"}</p>
-                  {run.message ? <p className="text-sm text-muted">{run.message}</p> : null}
-                  {run.logs.length > 1 ? <pre className="mt-1 whitespace-pre-wrap text-xs text-muted">{run.logs.join("\n")}</pre> : null}
+                  {run.message ? <p className="text-sm text-muted">{readableSourceError(run.message)}</p> : null}
+                  {run.logs.length > 1 ? <pre className="mt-1 whitespace-pre-wrap text-xs text-muted">{run.logs.map(readableSourceError).join("\n")}</pre> : null}
                 </td>
                 <td>{statusLabel(run.status)}</td>
                 <td>{run.newCount}</td>

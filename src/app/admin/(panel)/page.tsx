@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SyncButton } from "@/components/SyncButton";
 import { createSourceAction } from "@/server/admin-actions";
 import { formatDateTime } from "@/lib/dates";
-import { methodLabel, statusLabel } from "@/lib/format";
+import { methodLabel, readableSourceError, statusLabel } from "@/lib/format";
 import { getRepository } from "@/lib/app-db";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +37,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                 <td>
                   <p className="font-semibold">{source.name}</p>
                   <p className="text-sm text-muted">{source.feedUrl || source.homepageUrl || "Aucune URL"}</p>
-                  {source.lastError ? <p className="text-sm text-clay">{source.lastError}</p> : null}
+                  {source.lastError ? <p className="text-sm text-clay">{readableSourceError(source.lastError)}</p> : null}
                 </td>
                 <td>{methodLabel(source.method)}</td>
                 <td>{statusLabel(source.status)}</td>

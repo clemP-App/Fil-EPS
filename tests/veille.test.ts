@@ -4,6 +4,7 @@ import { parseFeed } from "@/collector/feed";
 import { extractHtmlList, openGraphImage, contentImage } from "@/collector/html";
 import { fillMissingImages } from "@/collector/collect";
 import { describeFetchFailure, robotsAllows } from "@/collector/http";
+import { readableSourceError } from "@/lib/format";
 import { parseSitemapXml } from "@/collector/sitemap";
 import { parisStartOfDay, parseLooseDate } from "@/lib/dates";
 import { selectFeatured } from "@/lib/featuring";
@@ -13,6 +14,10 @@ import { createRepository } from "@/lib/repository";
 import { renderRss } from "@/lib/rss";
 import { canonicalUrl, isMembersArea, safeImageUrl } from "@/lib/url";
 import { fold, excerpt } from "@/lib/text";
+import { parsePublicFilters, filtersToQuery, EMPTY_FILTERS } from "@/lib/filters";
+import { exclusionsFromFilters, keptSlugs, migrateLegacyPrefs, resolveGroup } from "@/lib/filter-memory";
+import { sourceBlockedReason } from "@/lib/source-access";
+import { sourceInitials, sourceLogoUrl, sourceMarkColor } from "@/lib/source-mark";
 import type { SourceDefinition } from "@/lib/types";
 
 const lyon: SourceDefinition = {
@@ -224,16 +229,23 @@ describe("collecte", () => {
     const tls = new TypeError("fetch failed");
     tls.cause = Object.assign(new Error("unable to verify the first certificate"), { code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE" });
     expect(describeFetchFailure(tls, "https://eps.wp.ac-dijon.fr/feed/")).toBe(
-      "Chaîne de certificat incomplète pour eps.wp.ac-dijon.fr.",
+      "Le certificat de sécurité du site eps.wp.ac-dijon.fr est incomplet.",
     );
     const expired = new TypeError("fetch failed");
     expired.cause = Object.assign(new Error("certificate has expired"), { code: "CERT_HAS_EXPIRED" });
     expect(describeFetchFailure(expired, "https://ent2d.ac-bordeaux.fr/disciplines/eps/")).toBe(
-      "Certificat expiré pour ent2d.ac-bordeaux.fr.",
+      "Le certificat de sécurité du site ent2d.ac-bordeaux.fr a expiré.",
     );
     const timeout = new Error("The operation was aborted due to timeout");
     timeout.name = "TimeoutError";
-    expect(describeFetchFailure(timeout, "https://eps.ac-normandie.fr/")).toBe("Délai dépassé pour eps.ac-normandie.fr.");
+    expect(describeFetchFailure(timeout, "https://eps.ac-normandie.fr/")).toBe("Le site eps.ac-normandie.fr a mis trop de temps à répondre.");
+    expect(describeFetchFailure(new TypeError("fetch failed"), "https://eps.example/feed")).toBe(
+      "Le site eps.example n'a pas pu être consulté.",
+    );
+    expect(readableSourceError("fetch failed")).toBe("Le site n'a pas pu être consulté.");
+    expect(readableSourceError("HTTP 503 pour https://pedagogie.ac-rennes.fr/spip.php?page=backend")).toBe(
+      "Le site pedagogie.ac-rennes.fr est momentanément indisponible.",
+    );
   });
 
   it("respecte robots.txt", () => {
@@ -249,6 +261,34 @@ describe("collecte", () => {
     const parsed = parseSitemapXml(`<urlset><url><loc>https://eps.example/a</loc><lastmod>2026-10-01</lastmod></url></urlset>`);
     expect(parsed.kind).toBe("urlset");
     expect(parsed.entries[0].loc).toBe("https://eps.example/a");
+  });
+});
+
+describe("filtres mémorisés", () => {
+  it("masque une académie décochée sans retirer les autres", () => {
+    const filters = parsePublicFilters({ "sans-academie": "lyon" });
+    expect(filters.excludeAcademies).toEqual(["lyon"]);
+    expect(filtersToQuery(filters)).toBe("?sans-academie=lyon");
+    expect(keptSlugs("academie", filters.excludeAcademies)).not.toContain("lyon");
+    expect(keptSlugs("academie", filters.excludeAcademies)).toContain("besancon");
+  });
+
+  it("laisse cochées les sources joignables et grise les autres", () => {
+    expect(sourceBlockedReason("lyon")).toBeNull();
+    expect(sourceBlockedReason("aeeps")).toBeNull();
+    expect(sourceBlockedReason("bordeaux")).toMatch(/académie/);
+    expect(sourceBlockedReason("eduscol")).toMatch(/source/);
+    expect(keptSlugs("academie", [])).not.toContain("bordeaux");
+  });
+
+  it("reprend une veille ancienne comme des cases décochées", () => {
+    const exclusions = migrateLegacyPrefs({ academies: ["lyon"], themes: [] });
+    expect(exclusions.academie).toContain("besancon");
+    expect(exclusions.academie).not.toContain("lyon");
+    expect(exclusions.academie).not.toContain("bordeaux");
+    expect(exclusions.theme).toEqual([]);
+    expect(resolveGroup([], [], ["lyon"], ["lyon", "nice"])).toEqual(["lyon"]);
+    expect(exclusionsFromFilters({ ...EMPTY_FILTERS, academies: ["lyon"] }).academie).not.toContain("lyon");
   });
 });
 
@@ -293,6 +333,18 @@ describe("dépôt", () => {
     expect(admin.items.some((item) => item.title.startsWith("[FICTIF]"))).toBe(true);
   });
 
+  it("retire une académie décochée des résultats", async () => {
+    const { repo, source } = await repoWithSource();
+    await repo.ensureSources([{ ...lyon, slug: "corse", name: "Corse" }]);
+    const other = (await repo.listSources()).find((item) => item.slug === "corse");
+    if (!other) throw new Error("source absente");
+    await repo.upsertCollected(source, collected("https://eps.example/lyon-seul", "Article de Lyon"), { fromFeed: true });
+    await repo.upsertCollected(other, collected("https://eps.example/corse-seul", "Article de Corse"), { fromFeed: true });
+    const hidden = await repo.listPublications({ excludeAcademies: ["lyon"] });
+    expect(hidden.total).toBe(1);
+    expect(hidden.items[0].sourceSlug).toBe("corse");
+  });
+
   it("ne réécrit pas une classification verrouillée", async () => {
     const { repo, source } = await repoWithSource();
     await repo.upsertCollected(source, collected("https://eps.example/note", "Note de rentrée"), { fromFeed: true });
@@ -302,6 +354,25 @@ describe("dépôt", () => {
     const updated = await repo.getPublication(publication.id);
     expect(updated?.themes.map((term) => term.slug)).toEqual(["formation"]);
     expect(updated?.apsas).toEqual([]);
+  });
+});
+
+describe("repères de source", () => {
+  it("résume le nom en deux lettres distinctes", () => {
+    expect(sourceInitials("Aix-Marseille")).toBe("AM");
+    expect(sourceInitials("La Réunion")).toBe("LR");
+    expect(sourceInitials("Nouvelle-Calédonie")).toBe("NC");
+    expect(sourceInitials("Orléans-Tours")).toBe("OT");
+    expect(sourceInitials("Éduscol")).toBe("ED");
+    expect(sourceInitials("Tube EPS")).toBe("TE");
+    expect(sourceInitials("Lyon")).toBe("LY");
+  });
+
+  it("garde une couleur stable et le symbole des organismes qui en ont un", () => {
+    expect(sourceMarkColor("lyon")).toBe(sourceMarkColor("lyon"));
+    expect(sourceMarkColor("lyon")).not.toBe(sourceMarkColor("paris"));
+    expect(sourceLogoUrl("snep-fsu")).toContain("lesite.snepfsu.fr");
+    expect(sourceLogoUrl("lyon")).toBeNull();
   });
 });
 

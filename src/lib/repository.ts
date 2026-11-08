@@ -81,6 +81,11 @@ export type ListQuery = {
   apsas?: string[];
   levels?: string[];
   contentTypes?: string[];
+  excludeAcademies?: string[];
+  excludeThemes?: string[];
+  excludeApsas?: string[];
+  excludeLevels?: string[];
+  excludeContentTypes?: string[];
   from?: string | null;
   to?: string | null;
   tokens?: string[];
@@ -822,6 +827,13 @@ function buildWhere(binder: Binder, query: ListQuery): string {
   if (query.apsas?.length) clauses.push(existsIn("publication_apsas", "apsa_slug", binder, query.apsas));
   if (query.levels?.length) clauses.push(existsIn("publication_levels", "level_slug", binder, query.levels));
   if (query.contentTypes?.length) clauses.push(`p.content_type IN (${binder.list(query.contentTypes)})`);
+  if (query.excludeAcademies?.length) clauses.push(`s.slug NOT IN (${binder.list(query.excludeAcademies)})`);
+  if (query.excludeThemes?.length) clauses.push(`NOT ${existsIn("publication_themes", "theme_slug", binder, query.excludeThemes)}`);
+  if (query.excludeApsas?.length) clauses.push(`NOT ${existsIn("publication_apsas", "apsa_slug", binder, query.excludeApsas)}`);
+  if (query.excludeLevels?.length) clauses.push(`NOT ${existsIn("publication_levels", "level_slug", binder, query.excludeLevels)}`);
+  if (query.excludeContentTypes?.length) {
+    clauses.push(`(p.content_type IS NULL OR p.content_type NOT IN (${binder.list(query.excludeContentTypes)}))`);
+  }
   if (query.from || query.to) {
     clauses.push("p.published_at IS NOT NULL");
     if (query.from) clauses.push(`p.published_at >= ${binder.add(query.from)}`);

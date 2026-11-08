@@ -88,9 +88,42 @@ async function fetchUrl(url) {
       ms: Date.now() - started,
       bytes: 0,
       text: "",
-      error: error instanceof Error ? error.message : String(error),
+      error: plainFetchError(error, url),
     };
   }
+}
+
+function plainFetchError(error, url) {
+  let host = url;
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    /* L'adresse saisie reste le libellé. */
+  }
+  const parts = [];
+  const seen = new Set();
+  const queue = [error];
+  while (queue.length > 0 && parts.length < 8) {
+    const current = queue.shift();
+    if (!current || typeof current !== "object" || seen.has(current)) continue;
+    seen.add(current);
+    if (current instanceof Error) parts.push(`${current.name} ${current.code ?? ""} ${current.message}`);
+    if ("cause" in current && current.cause) queue.push(current.cause);
+    if (Array.isArray(current.errors)) queue.push(...current.errors);
+  }
+  const blob = parts.join(" ");
+  if (/CERT_HAS_EXPIRED|certificate has expired/i.test(blob)) return `Le certificat de sécurité du site ${host} a expiré.`;
+  if (/ERR_TLS_CERT_ALTNAME_INVALID|does not match certificate/i.test(blob)) {
+    return `Le certificat de sécurité ne correspond pas à l'adresse ${host}.`;
+  }
+  if (/UNABLE_TO_VERIFY|SELF_SIGNED|self-signed certificate/i.test(blob)) return `Le certificat de sécurité du site ${host} est incomplet.`;
+  if (/ENETUNREACH|EHOSTUNREACH|ECONNREFUSED|UND_ERR_CONNECT_TIMEOUT/i.test(blob)) return `Le site ${host} ne répond pas.`;
+  if (/ETIMEDOUT|TimeoutError|timeout|UND_ERR_HEADERS_TIMEOUT|UND_ERR_BODY_TIMEOUT/i.test(blob)) {
+    return `Le site ${host} a mis trop de temps à répondre.`;
+  }
+  if (/ENOTFOUND|EAI_AGAIN|getaddrinfo/i.test(blob)) return `L'adresse ${host} est introuvable.`;
+  if (/ECONNRESET|EPIPE|socket disconnected/i.test(blob)) return `La connexion avec ${host} a été coupée.`;
+  return `Le site ${host} n'a pas pu être consulté.`;
 }
 
 function decodeBasic(value) {

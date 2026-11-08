@@ -3,9 +3,12 @@ import tls from "node:tls";
 import { USER_AGENT } from "@/lib/constants";
 
 export class CollectorError extends Error {
-  constructor(message: string) {
+  readonly retryable: boolean;
+
+  constructor(message: string, options?: { retryable?: boolean }) {
     super(message.slice(0, 300));
     this.name = "CollectorError";
+    this.retryable = options?.retryable ?? false;
   }
 }
 
@@ -112,28 +115,37 @@ export function describeFetchFailure(error: unknown, url: string): string {
   const host = hostnameOf(url);
   const chain = errorChain(error);
   const blob = chain.map((item) => [item.name, codeOf(item), item.message].filter(Boolean).join(" ")).join(" ");
-  if (/CERT_HAS_EXPIRED/.test(blob)) return `Certificat expiré pour ${host}.`;
-  if (/ERR_TLS_CERT_ALTNAME_INVALID|does not match certificate/.test(blob)) return `Le certificat ne correspond pas à ${host}.`;
-  if (/UNABLE_TO_VERIFY_LEAF_SIGNATURE|UNABLE_TO_GET_ISSUER|SELF_SIGNED_CERT|DEPTH_ZERO_SELF_SIGNED/.test(blob)) {
-    return `Chaîne de certificat incomplète pour ${host}.`;
+  if (/CERT_HAS_EXPIRED|certificate has expired/i.test(blob)) return `Le certificat de sécurité du site ${host} a expiré.`;
+  if (/ERR_TLS_CERT_ALTNAME_INVALID|does not match certificate/i.test(blob)) {
+    return `Le certificat de sécurité ne correspond pas à l'adresse ${host}.`;
   }
-  if (/UND_ERR_CONNECT_TIMEOUT|ENETUNREACH|EHOSTUNREACH|ECONNREFUSED/.test(blob)) return `Hôte injoignable : ${host}.`;
-  if (/ETIMEDOUT|TimeoutError|aborted due to timeout|UND_ERR_HEADERS_TIMEOUT|UND_ERR_BODY_TIMEOUT/.test(blob)) {
-    return `Délai dépassé pour ${host}.`;
+  if (/UNABLE_TO_VERIFY_LEAF_SIGNATURE|UNABLE_TO_GET_ISSUER|SELF_SIGNED_CERT|DEPTH_ZERO_SELF_SIGNED|unable to verify the first certificate|self-signed certificate/i.test(blob)) {
+    return `Le certificat de sécurité du site ${host} est incomplet.`;
   }
-  if (/ENOTFOUND|EAI_AGAIN/.test(blob)) return `Nom d'hôte introuvable : ${host}.`;
-  if (/ECONNRESET|EPIPE/.test(blob)) return `Connexion interrompue par ${host}.`;
-  const message = chain[0]?.message?.trim();
-  if (message && message !== "fetch failed") return message.slice(0, 240);
-  const code = chain.map(codeOf).find(Boolean);
-  return code ? `Échec réseau (${code}) pour ${host}.` : `Échec réseau pour ${host}.`;
+  if (/UND_ERR_CONNECT_TIMEOUT|ENETUNREACH|EHOSTUNREACH|ECONNREFUSED/i.test(blob)) return `Le site ${host} ne répond pas.`;
+  if (/ETIMEDOUT|TimeoutError|aborted due to timeout|UND_ERR_HEADERS_TIMEOUT|UND_ERR_BODY_TIMEOUT/i.test(blob)) {
+    return `Le site ${host} a mis trop de temps à répondre.`;
+  }
+  if (/ENOTFOUND|EAI_AGAIN|getaddrinfo/i.test(blob)) return `L'adresse ${host} est introuvable.`;
+  if (/ECONNRESET|EPIPE|socket disconnected/i.test(blob)) return `La connexion avec ${host} a été coupée.`;
+  return `Le site ${host} n'a pas pu être consulté.`;
+}
+
+export function describeHttpFailure(status: number, url: string): string {
+  const host = hostnameOf(url);
+  if (status === 401 || status === 403) return `Le site ${host} refuse l'accès.`;
+  if (status === 404) return `La page demandée est introuvable sur ${host}.`;
+  if (status === 408) return `Le site ${host} a mis trop de temps à répondre.`;
+  if (status === 429) return `Le site ${host} demande de patienter avant une nouvelle visite.`;
+  if (status >= 500) return `Le site ${host} est momentanément indisponible.`;
+  return `Le site ${host} a renvoyé une erreur.`;
 }
 
 export const politeFetch: Fetcher = async (url, options) => {
   const target = new URL(url);
   const robots = await loadRobots(target.origin);
   const decision = robotsAllows(robots.text, url);
-  if (!decision.allowed) throw new CollectorError(`robots.txt interdit l'accès à ${target.pathname}`);
+  if (!decision.allowed) throw new CollectorError(`Le site ${target.hostname} interdit la collecte automatique.`);
   await waitForHost(target.host, Math.max(800, decision.crawlDelayMs));
   let lastError: unknown = null;
   let recovered = false;
@@ -141,7 +153,7 @@ export const politeFetch: Fetcher = async (url, options) => {
     try {
       return await requestOnce(url, options);
     } catch (error) {
-      if (error instanceof CollectorError && !/HTTP 429|HTTP 5/.test(error.message)) throw error;
+      if (error instanceof CollectorError && !error.retryable) throw error;
       lastError = error;
       if (!recovered && isIncompleteChain(error)) {
         recovered = true;
@@ -167,8 +179,10 @@ async function requestOnce(url: string, options?: { maxBytes?: number; accept?: 
       "accept-language": "fr-FR,fr;q=0.9",
     },
   });
-  if (response.status === 429 || response.status >= 500) throw new CollectorError(`HTTP ${response.status} pour ${url}`);
-  if (!response.ok) throw new CollectorError(`HTTP ${response.status} pour ${url}`);
+  if (!response.ok) {
+    const retryable = response.status === 429 || response.status >= 500;
+    throw new CollectorError(describeHttpFailure(response.status, url), { retryable });
+  }
   return {
     url: response.url,
     status: response.status,
@@ -200,11 +214,15 @@ function codeOf(error: Error): string {
 function errorChain(error: unknown): Error[] {
   const chain: Error[] = [];
   const seen = new Set<unknown>();
-  let current: unknown = error;
-  while (current && typeof current === "object" && !seen.has(current) && chain.length < 6) {
+  const queue: unknown[] = [error];
+  while (queue.length > 0 && chain.length < 8) {
+    const current = queue.shift();
+    if (!current || typeof current !== "object" || seen.has(current)) continue;
     seen.add(current);
     if (current instanceof Error) chain.push(current);
-    current = (current as { cause?: unknown }).cause;
+    const record = current as { cause?: unknown; errors?: unknown };
+    if (record.cause) queue.push(record.cause);
+    if (Array.isArray(record.errors)) queue.push(...record.errors);
   }
   return chain;
 }

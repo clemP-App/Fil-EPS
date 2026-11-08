@@ -9,6 +9,11 @@ export type PublicFilters = {
   apsas: string[];
   levels: string[];
   types: string[];
+  excludeAcademies: string[];
+  excludeThemes: string[];
+  excludeApsas: string[];
+  excludeLevels: string[];
+  excludeTypes: string[];
   period: PeriodKey;
   from: string;
   to: string;
@@ -23,6 +28,11 @@ export const EMPTY_FILTERS: PublicFilters = {
   apsas: [],
   levels: [],
   types: [],
+  excludeAcademies: [],
+  excludeThemes: [],
+  excludeApsas: [],
+  excludeLevels: [],
+  excludeTypes: [],
   period: "",
   from: "",
   to: "",
@@ -41,6 +51,11 @@ export function parsePublicFilters(input: Record<string, string | string[] | und
     apsas: many(input.apsa).filter((slug) => APSAS.some((item) => item.slug === slug)),
     levels: many(input.niveau).filter((slug) => LEVELS.some((item) => item.slug === slug)),
     types: many(input.type).filter((slug) => CONTENT_TYPES.some((item) => item.slug === slug)),
+    excludeAcademies: many(input["sans-academie"]).filter((slug) => ACADEMIES.some((item) => item.slug === slug)),
+    excludeThemes: many(input["sans-theme"]).filter((slug) => THEMES.some((item) => item.slug === slug)),
+    excludeApsas: many(input["sans-apsa"]).filter((slug) => APSAS.some((item) => item.slug === slug)),
+    excludeLevels: many(input["sans-niveau"]).filter((slug) => LEVELS.some((item) => item.slug === slug)),
+    excludeTypes: many(input["sans-type"]).filter((slug) => CONTENT_TYPES.some((item) => item.slug === slug)),
     period: PERIODS.has(period) ? period : "",
     from: /^\d{4}-\d{2}-\d{2}$/.test(one(input.du)) ? one(input.du) : "",
     to: /^\d{4}-\d{2}-\d{2}$/.test(one(input.au)) ? one(input.au) : "",
@@ -57,6 +72,11 @@ export function filtersActive(filters: PublicFilters): boolean {
       filters.apsas.length ||
       filters.levels.length ||
       filters.types.length ||
+      filters.excludeAcademies.length ||
+      filters.excludeThemes.length ||
+      filters.excludeApsas.length ||
+      filters.excludeLevels.length ||
+      filters.excludeTypes.length ||
       filters.period ||
       filters.from ||
       filters.to ||
@@ -80,6 +100,11 @@ export function toQueryParts(filters: PublicFilters, now = new Date()) {
     apsas: filters.apsas,
     levels: filters.levels,
     contentTypes: filters.types,
+    excludeAcademies: filters.excludeAcademies,
+    excludeThemes: filters.excludeThemes,
+    excludeApsas: filters.excludeApsas,
+    excludeLevels: filters.excludeLevels,
+    excludeContentTypes: filters.excludeTypes,
     from: bounds.from,
     to: bounds.to,
     tokens: searchTokens(filters.q),
@@ -98,6 +123,11 @@ export function filtersToQuery(filters: PublicFilters, patch: Partial<PublicFilt
     apsas: patch.apsas ?? filters.apsas,
     levels: patch.levels ?? filters.levels,
     types: patch.types ?? filters.types,
+    excludeAcademies: patch.excludeAcademies ?? filters.excludeAcademies,
+    excludeThemes: patch.excludeThemes ?? filters.excludeThemes,
+    excludeApsas: patch.excludeApsas ?? filters.excludeApsas,
+    excludeLevels: patch.excludeLevels ?? filters.excludeLevels,
+    excludeTypes: patch.excludeTypes ?? filters.excludeTypes,
   };
   const params = new URLSearchParams();
   if (next.q) params.set("q", next.q);
@@ -106,6 +136,11 @@ export function filtersToQuery(filters: PublicFilters, patch: Partial<PublicFilt
   for (const slug of next.apsas) params.append("apsa", slug);
   for (const slug of next.levels) params.append("niveau", slug);
   for (const slug of next.types) params.append("type", slug);
+  for (const slug of next.excludeAcademies) params.append("sans-academie", slug);
+  for (const slug of next.excludeThemes) params.append("sans-theme", slug);
+  for (const slug of next.excludeApsas) params.append("sans-apsa", slug);
+  for (const slug of next.excludeLevels) params.append("sans-niveau", slug);
+  for (const slug of next.excludeTypes) params.append("sans-type", slug);
   if (next.period) params.set("periode", next.period);
   if (next.period === "personnalisee") {
     if (next.from) params.set("du", next.from);
