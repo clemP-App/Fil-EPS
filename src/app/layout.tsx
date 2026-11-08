@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Footer, Header } from "@/components/SiteChrome";
 import { SITE_NAME, siteUrl } from "@/lib/constants";
 import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-source" });
+
+export const viewport: Viewport = {
+  themeColor: "#0f766e",
+  colorScheme: "light dark",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -15,6 +22,17 @@ export const metadata: Metadata = {
   description: "Journal numérique des publications d'éducation physique et sportive repérées sur les sites académiques français.",
   applicationName: SITE_NAME,
   alternates: { types: { "application/rss+xml": "/rss.xml" } },
+  appleWebApp: { capable: true, title: SITE_NAME, statusBarStyle: "default" },
+  other: { "apple-mobile-web-app-capable": "yes" },
+  icons: {
+    shortcut: [{ url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" }],
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     locale: "fr_FR",
     type: "website",

@@ -69,6 +69,14 @@ export const VERIFIED_SOURCES: VerifiedSource[] = [
     config: {},
   },
   {
+    slug: "orleans-tours",
+    homepageUrl: "https://pedagogie.ac-orleans-tours.fr/spip.php?rubrique612",
+    feedUrl: "https://pedagogie.ac-orleans-tours.fr/spip.php?page=backend&id_rubrique=612",
+    method: "rss",
+    enabled: true,
+    config: {},
+  },
+  {
     slug: "nouvelle-caledonie",
     homepageUrl: "https://eps.ac-noumea.nc/",
     feedUrl: "https://eps.ac-noumea.nc/spip.php?page=backend",

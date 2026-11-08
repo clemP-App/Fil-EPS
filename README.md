@@ -46,6 +46,7 @@ Les adresses ci-dessous ont été lues les 4 et 5 novembre 2026. Les autres acad
 | Nantes | HTML | https://pedagogie.ac-nantes.fr/les-disciplines-du-second-degre/education-physique-et-sportive/enseigner/revue-e-nov-eps-publications-du-gaip-1 |
 | Nice | RSS | https://www.pedagogie.ac-nice.fr/eps/feed/ |
 | Normandie | RSS | https://eps.ac-normandie.fr/spip.php?page=backend |
+| Orléans-Tours | RSS | https://pedagogie.ac-orleans-tours.fr/spip.php?page=backend&id_rubrique=612 |
 | Nouvelle-Calédonie | RSS | https://eps.ac-noumea.nc/spip.php?page=backend |
 | Paris | HTML | https://pia.ac-paris.fr/portail/jcms/p2_1452454/ressources |
 | Poitiers | HTML | https://ww2.ac-poitiers.fr/eps/ |
@@ -59,17 +60,16 @@ Les adresses ci-dessous ont été lues les 4 et 5 novembre 2026. Les autres acad
 
 Le flux de Besançon n’expose actuellement qu’un seul élément. Poitiers, Grenoble, Montpellier, Strasbourg, Paris, Nantes et l’AEEPS n’ont pas de flux exploitable : une page d’actualités ou de ressources est lue avec un extracteur limité aux articles. Les actualités AEEPS n’affichent pas de date de publication : elle reste inconnue. Le flux de Rennes est celui de la rubrique EPS, pas celui de tout le portail. Tube EPS est le portail vidéo PeerTube d’apps.education.fr ; seules les vidéos locales de l’instance sont reprises. Le SNEP-FSU est repris par le flux public du site. Le sitemap est implémenté, mais aucune source vérifiée ne l’utilise, pour ne pas mélanger l’EPS avec les autres disciplines d’un site académique.
 
-Le flux d’Aix-Marseille est limité au site disciplinaire EPS. Les lettres d’information présentes sur l’accueil n’y figurent pas. Dijon et Nice ont un flux WordPress EPS dont le certificat a été validé le 5 novembre 2026. Nantes reprend uniquement les cartes récentes de la revue e-novEPS (publications du GAIP), avec leur date éditoriale. L’onglet des anciens numéros n’est pas collecté : certaines cases n’ont pas de lien, et la date de mise en ligne de la page est distincte de la date éditoriale, visible seulement dans la publication. La Polynésie française est le flux du bureau EPS de la DGEE. Les entrées lues portent sur l’EPS, l’activité physique ou le sport scolaire. Le même site publie aussi sur la sûreté des écoles, et l’adresse du flux ne contient pas de filtre exclusif. La page EPS du vice-rectorat reste en HTTP 403.
+Le flux d’Aix-Marseille est limité au site disciplinaire EPS. Les lettres d’information présentes sur l’accueil n’y figurent pas. Dijon et Nice ont un flux WordPress EPS. Leur serveur envoie le certificat du site sans l'intermédiaire : le collecteur récupère cet intermédiaire à l'adresse indiquée dans le certificat, vérifie qu'il est signé par une autorité déjà reconnue, puis relance la lecture. Le contrôle TLS n'est pas désactivé. Nantes reprend uniquement les cartes récentes de la revue e-novEPS (publications du GAIP), avec leur date éditoriale. L’onglet des anciens numéros n’est pas collecté : certaines cases n’ont pas de lien, et la date de mise en ligne de la page est distincte de la date éditoriale, visible seulement dans la publication. La Polynésie française est le flux du bureau EPS de la DGEE. Les entrées lues portent sur l’EPS, l’activité physique ou le sport scolaire. Le même site publie aussi sur la sûreté des écoles, et l’adresse du flux ne contient pas de filtre exclusif. La page EPS du vice-rectorat reste en HTTP 403.
 
-Huit sources restent désactivées. La vérification du 5 novembre 2026 a ouvert les cinq collectes ci-dessus et confirmé les blocages restants. Le collecteur ne désactive pas la vérification TLS, ne contourne pas un refus d’accès et respecte `robots.txt`.
+Sept sources restent désactivées. Le 8 novembre 2026, Orléans-Tours répond de nouveau : seule la rubrique EPS est collectée. Le collecteur ne désactive pas la vérification TLS, ne contourne pas un refus d’accès et respecte `robots.txt`.
 
 | Source | Adresse ouverte | Blocage |
 | --- | --- | --- |
 | Bordeaux | https://ent2d.ac-bordeaux.fr/disciplines/eps/feed/ | certificat expiré, aucune autre adresse validée |
-| Nancy-Metz | https://sites.ac-nancy-metz.fr/eps/wp/ | HTTP 404, y compris l’ancien WordPress, son flux et le portail d’inspection |
-| Orléans-Tours | https://pedagogie.ac-orleans-tours.fr/spip.php?rubrique2375 | HTTP 503, site en travaux |
-| Reims | https://pedagogie.ac-reims.fr/ | délai dépassé, y compris la rubrique « Se former EPS Lycée » |
-| Martinique | https://site.ac-martinique.fr/eps/ | accueil lisible, mais `/feed/` renvoie du HTML et les listes n’ont pas de date homogène |
+| Nancy-Metz | https://sites.ac-nancy-metz.fr/eps/ | HTTP 503, aucun serveur disponible |
+| Reims | https://pedagogie.ac-reims.fr/ | délai de connexion dépassé |
+| Martinique | https://site.ac-martinique.fr/eps/ | `robots.txt` interdit tout le site (`Disallow: /`) ; le flux ne contient pas de titre exploitable |
 | Mayotte | https://eps.ac-mayotte.fr/ | certificat non valable pour le nom `eps.ac-mayotte.fr` |
 | La Réunion | https://www.ac-reunion.fr/education-physique-et-sportive-2nd-degre-126428 | HTTP 403 |
 | Éduscol | https://edubase.eduscol.education.fr/rss/rss.xml?discipline[0]=%C3%89ducation%20Physique%20et%20Sportive | flux EPS en HTTP 200, refusé par `robots.txt` (`User-agent: *` / `Disallow: /`) ; le portail disciplinaire reste en HTTP 403 |

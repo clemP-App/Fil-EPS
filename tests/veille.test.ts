@@ -3,7 +3,7 @@ import { classify } from "@/lib/classify";
 import { parseFeed } from "@/collector/feed";
 import { extractHtmlList, openGraphImage, contentImage } from "@/collector/html";
 import { fillMissingImages } from "@/collector/collect";
-import { robotsAllows } from "@/collector/http";
+import { describeFetchFailure, robotsAllows } from "@/collector/http";
 import { parseSitemapXml } from "@/collector/sitemap";
 import { parisStartOfDay, parseLooseDate } from "@/lib/dates";
 import { selectFeatured } from "@/lib/featuring";
@@ -218,6 +218,22 @@ describe("collecte", () => {
       <media:thumbnail url="https://tube.example/thumb.jpg"/>
     </item></channel></rss>`);
     expect(parsed.items[0].imageUrl).toBe("https://tube.example/thumb.jpg");
+  });
+
+  it("explique un échec de collecte", () => {
+    const tls = new TypeError("fetch failed");
+    tls.cause = Object.assign(new Error("unable to verify the first certificate"), { code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE" });
+    expect(describeFetchFailure(tls, "https://eps.wp.ac-dijon.fr/feed/")).toBe(
+      "Chaîne de certificat incomplète pour eps.wp.ac-dijon.fr.",
+    );
+    const expired = new TypeError("fetch failed");
+    expired.cause = Object.assign(new Error("certificate has expired"), { code: "CERT_HAS_EXPIRED" });
+    expect(describeFetchFailure(expired, "https://ent2d.ac-bordeaux.fr/disciplines/eps/")).toBe(
+      "Certificat expiré pour ent2d.ac-bordeaux.fr.",
+    );
+    const timeout = new Error("The operation was aborted due to timeout");
+    timeout.name = "TimeoutError";
+    expect(describeFetchFailure(timeout, "https://eps.ac-normandie.fr/")).toBe("Délai dépassé pour eps.ac-normandie.fr.");
   });
 
   it("respecte robots.txt", () => {

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "origin": "collector",
-  "generatedAt": "2026-11-05T08:00:23.886Z",
+  "generatedAt": "2026-11-08T12:26:32.877Z",
   "note": "Métadonnées collectées sur les sites sources. Extraits courts uniquement, sans texte intégral.",
   "publications": [
     {
@@ -1116,6 +1116,42 @@
         "college"
       ],
       "tags": []
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Webinaire programmes Cycle 3, Classe de 6ème",
+      "summary": "23 Septembre2026 Vidéo du webinaire https://bbb-adm-scalelite.visio.education.fr/playback/presentation/2.3/750ad805cf6c8cf3377ba2214d2c1a53451e2a2e-1790170692955 Document support au webinaire",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/21/webinaire-programmes-cycle-3-classe-de-6eme/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/21/webinaire-programmes-cycle-3-classe-de-6eme",
+      "imageUrl": null,
+      "publishedAt": "2026-10-21T10:03:05.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.028Z",
+      "lastSeenAt": "2026-11-08T12:25:22.028Z",
+      "contentType": "webinaire",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Institutionnel",
+        "Programmes Collège, Socle Commun",
+        "Webinaires",
+        "Accueil"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [
+        "college",
+        "cycle-3"
+      ],
+      "tags": [
+        "Accueil",
+        "Institutionnel",
+        "Programmes Collège, Socle Commun",
+        "Webinaires"
+      ]
     },
     {
       "sourceSlug": "tube-eps",
@@ -2300,6 +2336,37 @@
       "tags": []
     },
     {
+      "sourceSlug": "dijon",
+      "title": "Webinaire évolution de carrière",
+      "summary": "6 octobre 2026 Vidéo du webinaire https://bbb-adm-scalelite.visio.education.fr/playback/presentation/2.3/750ad805cf6c8cf3377ba2214d2c1a53451e2a2e-1791301408017 Document support au webinaire",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/07/webinaire-evolution-de-carriere/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/07/webinaire-evolution-de-carriere",
+      "imageUrl": null,
+      "publishedAt": "2026-10-07T19:25:00.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.067Z",
+      "lastSeenAt": "2026-11-08T12:25:22.067Z",
+      "contentType": "webinaire",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Evolution de Carrière",
+        "Webinaires",
+        "Accueil"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Accueil",
+        "Evolution de Carrière",
+        "Webinaires"
+      ]
+    },
+    {
       "sourceSlug": "grenoble",
       "title": "Sportifs de Haut-Niveau (SHN)",
       "summary": null,
@@ -2319,6 +2386,97 @@
       "apsas": [],
       "levels": [],
       "tags": []
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Cadre réglementaire à l’enseignement de l’EPS",
+      "summary": "Eclairer et sécuriser le métier d'enseignant d'EPS : s'appuyer sur des ressources juridiques, institutionnelles, des recommandations du corps d'inspection",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/cadre-reglementaire-v2/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/cadre-reglementaire-v2",
+      "imageUrl": "http://eps.wp.ac-dijon.fr/wp-content/uploads/sites/20/2024/12/gavel-with-books-old-wooden-desk-150x150.jpg",
+      "publishedAt": "2026-10-05T06:22:20.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.086Z",
+      "lastSeenAt": "2026-11-08T12:25:22.086Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Textes Réglementaires",
+        "Projet EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Projet EPS",
+        "Textes Réglementaires"
+      ]
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Guide réglementaire de l’EPS : Recommandations de l’Inspection Pédagogique Régionale EPS",
+      "summary": "Le Guide Réglementaire de l'EPS offre aux enseignants une ressource clé pour comprendre la réglementation de l'EPS et mettre en œuvre les enseignements obligatoires et facultatifs. Mis à jour chaque année, il inclut des liens vers les textes de référence et un sommaire interactif pour faciliter l'accès aux informations.",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/guide-reglementaire/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/guide-reglementaire",
+      "imageUrl": null,
+      "publishedAt": "2026-10-05T06:20:13.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.104Z",
+      "lastSeenAt": "2026-11-08T12:25:22.104Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Institutionnel"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Institutionnel"
+      ]
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Calendrier des examens en EPS",
+      "summary": "PROJET_Calendrier_examens_2027 PDF – 242 Ko Télécharger",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/calendrier-des-examens-en-eps/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/05/calendrier-des-examens-en-eps",
+      "imageUrl": null,
+      "publishedAt": "2026-10-05T06:16:11.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.112Z",
+      "lastSeenAt": "2026-11-08T12:25:22.112Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Commission Académique & Nationale des Examens",
+        "Commission Académique des Examens",
+        "Examens: Bac Général & Technologique",
+        "Examens: Diplôme National du Brevet",
+        "Examens: Informations Candidats",
+        "Examens: Voie Professionnelle"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "examens-certifications"
+      ],
+      "apsas": [],
+      "levels": [
+        "lycee-gt",
+        "lycee-professionnel"
+      ],
+      "tags": [
+        "Commission Académique des Examens",
+        "Examens: Bac Général & Technologique",
+        "Examens: Diplôme National du Brevet",
+        "Examens: Informations Candidats",
+        "Examens: Voie Professionnelle"
+      ]
     },
     {
       "sourceSlug": "clermont-ferrand",
@@ -2452,6 +2610,33 @@
       "apsas": [],
       "levels": [],
       "tags": []
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Webinaire Formation 2026",
+      "summary": "Mercredi 30 septembre 2026 Vidéo du webinaire Document support au webinaire",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/10/01/webinaire-formation-2026/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/10/01/webinaire-formation-2026",
+      "imageUrl": null,
+      "publishedAt": "2026-10-01T16:58:34.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.162Z",
+      "lastSeenAt": "2026-11-08T12:25:22.162Z",
+      "contentType": "webinaire",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Webinaires"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Webinaires"
+      ]
     },
     {
       "sourceSlug": "limoges",
@@ -2857,6 +3042,36 @@
       "tags": []
     },
     {
+      "sourceSlug": "dijon",
+      "title": "Webinaire Tutorat 2026",
+      "summary": "14 Septembre2026Valérie MILLET IA-IPR EPS Vidéo du webinaire Document support au webinaire Outils d’accompagnement du tuteur",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/09/17/webinaire-tutorat-2026/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/09/17/webinaire-tutorat-2026",
+      "imageUrl": "http://eps.wp.ac-dijon.fr/wp-content/uploads/sites/20/2024/12/pdf-150x150.png",
+      "publishedAt": "2026-09-17T08:00:59.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.176Z",
+      "lastSeenAt": "2026-11-08T12:25:22.176Z",
+      "contentType": "webinaire",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Webinaires",
+        "Accueil"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "formation",
+        "intelligence-artificielle"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Accueil",
+        "Webinaires"
+      ]
+    },
+    {
       "sourceSlug": "amiens",
       "title": "Pix+ Edu : améliorer ses compétences numériques en tant qu’enseignant en EPS",
       "summary": "Tout le monde connaît la plateforme Pix pour les élèves et les certifications associées ; mais savez-vous que Pix est une plateforme ouverte à tous les français et particulièrement aux enseignants avec des parcours spécifiques d’auto-formation ? Du B2i à Pix Depuis de nombreuses années, nos élèves passent une certification numérique. Au tout début, il […]",
@@ -3021,6 +3236,33 @@
       ]
     },
     {
+      "sourceSlug": "dijon",
+      "title": "Flash Infos EPS n°3 2026-2027",
+      "summary": "Date: 13/09/2026 Au Sommaire Documents Flash Infos",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/09/15/flash-infos-eps-n3-2026-2027/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/09/15/flash-infos-eps-n3-2026-2027",
+      "imageUrl": null,
+      "publishedAt": "2026-09-15T07:40:19.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.197Z",
+      "lastSeenAt": "2026-11-08T12:25:22.197Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Flash Infos EPS",
+        "Accueil"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Accueil",
+        "Flash Infos EPS"
+      ]
+    },
+    {
       "sourceSlug": "lille",
       "title": "Résultats de l’Académie aux Parcours du Cœur 2026",
       "summary": "Cette année encore, l’engagement des établissements scolaires et de leurs équipes EPS a été remarquable dans les Hauts-de-France",
@@ -3138,6 +3380,37 @@
       "tags": []
     },
     {
+      "sourceSlug": "dijon",
+      "title": "Flash Infos EPS n°2 2026-2027",
+      "summary": "ÉVALUATION DES APTITUDES PHYSIQUES DES ELEVES DE SECONDE GUIDE REGLEMENTAIRE EPS FORMATIONS DISCIPLINAIRES EPS NOUVEAUTÉ 2026-2027 – LES FORMATIONS RÉSEAU VACATAIRE IpackEPS",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/09/05/flash-infos-eps-n2-2026-2027/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/09/05/flash-infos-eps-n2-2026-2027",
+      "imageUrl": null,
+      "publishedAt": "2026-09-05T07:36:32.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.215Z",
+      "lastSeenAt": "2026-11-08T12:25:22.215Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Flash Infos EPS",
+        "Accueil"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "evaluation",
+        "examens-certifications",
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Accueil",
+        "Flash Infos EPS"
+      ]
+    },
+    {
       "sourceSlug": "limoges",
       "title": "Bonne rentrée 2026",
       "summary": "Mesdames et messieurs les professeurs d'EPS, chères et chers collègues, Nous tenions, par l'intermédiaire de ce message, à vous souhaiter une très agréable rentrée scolaire 2026. En ces jours de rentrée nous sommes heureux d'accueillir dans nos établissements les enseignants entrant dans l'académie et les fonctionnaires stagiaires lauréats des concours, auxquels nous souhaitons la bienvenue. Courant Septembre, afin…",
@@ -3211,6 +3484,62 @@
       "apsas": [],
       "levels": [],
       "tags": []
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "Dispositif « 2 heures en plus »",
+      "summary": "Déploiement du dispositif deux heures hebdomadaires supplémentaires d’activité physique et sportive pour les collégiens – Rentrée scolaire 2026 Déploiement du dispositif deux heures hebdomadaires supplémentaires d’activité physique et sportive pour les collégiens – Rentrée scolaire 2023 Expérimentation 2h hebdomadaires supplémentaires d’activité physique et sportive pour les collégiens Note de service du 26 08 2022",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/dispositif-2-heures-en-plus/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/dispositif-2-heures-en-plus",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2017/09/symbole-de-telechargement-1-300x300.jpg",
+      "publishedAt": "2026-08-28T11:53:14.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.783Z",
+      "lastSeenAt": "2026-11-08T12:26:29.783Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "innovations-pedagogiques"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
+      "sourceSlug": "dijon",
+      "title": "Flash Infos EPS n°1 2026-2027",
+      "summary": "lettre de rentré IpackEPS Webinaires EPS Évaluation des aptitudes physiques (6ème) Septembre bouge JNSS",
+      "originalUrl": "https://eps.wp.ac-dijon.fr/2026/08/27/flash-infos-eps-n1-2026-2027/",
+      "canonicalUrl": "https://eps.wp.ac-dijon.fr/2026/08/27/flash-infos-eps-n1-2026-2027",
+      "imageUrl": null,
+      "publishedAt": "2026-08-27T20:57:22.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:25:22.333Z",
+      "lastSeenAt": "2026-11-08T12:25:22.333Z",
+      "contentType": "webinaire",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Flash Infos EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "evaluation",
+        "examens-certifications",
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Flash Infos EPS"
+      ]
     },
     {
       "sourceSlug": "normandie",
@@ -4013,6 +4342,58 @@
       "tags": []
     },
     {
+      "sourceSlug": "nice",
+      "title": "Campagne de labellisation",
+      "summary": "La campagne de labellisation « Génération 2030 » est gérée par une plateforme Nationale pour laquelle une connexion « France Connect » est requise. Lien d’accès: https://demarche.numerique.gouv.fr/commencer/labellisation-generation-2030 Tutoriel usager afin de vous accompagner pas à pas dans votre démarche : https://doc.demarches-simplifiees.fr/tutoriels/tutoriel-usager",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/campagne-de-labellisation/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/campagne-de-labellisation",
+      "imageUrl": null,
+      "publishedAt": "2026-05-20T10:23:23.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.795Z",
+      "lastSeenAt": "2026-11-08T12:26:29.795Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "numerique-educatif"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "Liste établissements labellisés G2030",
+      "summary": "Liste en téléchargement ici",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/liste-etablissements-labellises-g2030/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/liste-etablissements-labellises-g2030",
+      "imageUrl": null,
+      "publishedAt": "2026-05-20T07:37:26.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.803Z",
+      "lastSeenAt": "2026-11-08T12:26:29.803Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
       "sourceSlug": "rennes",
       "title": "Parkcode Freerun",
       "summary": "Une application pour oser l'acrobatie en EPS dans le champs d'apprentissage 3. La proposition vise à sécuriser et stimuler l'audace des élèves pour developper une motricité acrobatique essentielle : jouer avec la gravité devant les autres pour tourner, quitter le sol et le retrouver dans des ajustements plus ou moins stables. ParkCode Freerun propose un jeu collectif dans lequel les élèves peuvent entrer en…",
@@ -4128,6 +4509,31 @@
       "tags": []
     },
     {
+      "sourceSlug": "nice",
+      "title": "PRÉSENTATION DU LABEL G-2030",
+      "summary": "Document de présentation du label Génération 2030 Ce document présente les éléments structurants du lancement du label Génération 2030, à l’occasion de la Semaine Olympique et Paralympique 2026. Il en précise les ambitions, les finalités et les évolutions par rapport au label Génération 2024, en mettant en avant la volonté d’ancrer durablement la pratique physique … Continuer la lecture de PRÉSENTATION DU LABEL…",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/presentation-du-label-g-2030/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/presentation-du-label-g-2030",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2026/04/image-presentation-generation-2030-235x300.jpg",
+      "publishedAt": "2026-04-29T10:42:13.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.810Z",
+      "lastSeenAt": "2026-11-08T12:26:29.810Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
       "sourceSlug": "limoges",
       "title": "Polyvalence en athlétisme : des pistes concrètes pour transformer la motricité des élèves",
       "summary": "L'inspection pédagogique d'EPS a le plaisir de vous inviter à la prochaine conférence du cycle EPS 2025-2026, consacrée à une question vive de nos pratiques : comment développer la polyvalence en athlétisme tout en permettant à tous les élèves de progresser et de performer ? Cette conférence sera animée par Ghislain HANULA, professeur d'EPS, docteur en STAPS et spécialiste reconnu de l'athlétisme scolaire et des…",
@@ -4150,6 +4556,56 @@
       "levels": [],
       "tags": [
         "Athlétisme"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "CAHIER DES CHARGES- Génération 2030",
+      "summary": "Dans le cadre de la dynamique nationale portée par le label Génération 2024, ce document a été conçu pour accompagner les directeur(e)s, chef(fe)s d’établissement et les équipes éducatives dans leur démarche de labellisation. Il constitue un outil de lecture simplifiée du cahier des charges national, visant à en faciliter l’appropriation et la mise en œuvre … Continuer la lecture de CAHIER DES CHARGES- Génération…",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/cahier-des-charges-generation-2030/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/cahier-des-charges-generation-2030",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2026/04/Image-cahier-de-charges-generation-2030-300x227.jpg",
+      "publishedAt": "2026-04-28T16:32:47.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.816Z",
+      "lastSeenAt": "2026-11-08T12:26:29.816Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "GENERATION 2030",
+      "summary": "Le label Génération 2030 « Le label Génération 2030, lancé par le ministère de l’Éducation nationale, vise à promouvoir une pratique augmentée d’activités physiques et sportives chez les jeunes, en lien avec les Jeux Olympiques et Paralympiques d’hiver 2030. Il s’appuie sur cinq axes stratégiques : la mobilisation des passerelles avec le mouvement sportif, la construction … Continuer la lecture de GENERATION 2030 →",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/generation-2030/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/generation-2030",
+      "imageUrl": null,
+      "publishedAt": "2026-04-28T16:27:39.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.823Z",
+      "lastSeenAt": "2026-11-08T12:26:29.823Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
       ]
     },
     {
@@ -4177,6 +4633,33 @@
       "levels": [],
       "tags": [
         "Actualités académiques"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "Ressources CFA",
+      "summary": "Dans un contexte de spécificités propres aux Centres de Formation d’Apprentis, cette formation vise à accompagner les équipes dans l’évolution de leurs pratiques. Elle s’appuie sur les questionnements exprimés par les formateurs de CFA inscrits à cette première formation en région académique pour clarifier le cadre réglementaire, sécuriser les protocoles certificatifs et proposer des réponses … Continuer la lecture…",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/ressources-cfa/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/ressources-cfa",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2026/04/image-formation-CFA-300x219.jpg",
+      "publishedAt": "2026-04-20T08:47:27.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.830Z",
+      "lastSeenAt": "2026-11-08T12:26:29.830Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "formation"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
       ]
     },
     {
@@ -4411,6 +4894,31 @@
       ]
     },
     {
+      "sourceSlug": "nice",
+      "title": "TEXTES TRANSVERSAUX",
+      "summary": null,
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/textes-transversaux/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/textes-transversaux",
+      "imageUrl": null,
+      "publishedAt": "2026-03-05T16:50:42.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.839Z",
+      "lastSeenAt": "2026-11-08T12:26:29.839Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
       "sourceSlug": "rennes",
       "title": "Relais - Vitesse",
       "summary": "Analyse de la performance et de l'efficacité de la transmission en relais par la comparaison des vitesses du témoin dans différentes portion de la course Disponible en téléchargement sur iOS et Android : Relais-Vitesse Principe de fonctionnement Lors du relais, l'application permet de chronométrer facilement le relais et les différentes portion de course. Les résultats sont ensuite immédiatement visibles, ce qui…",
@@ -4454,6 +4962,58 @@
       "levels": [],
       "tags": [
         "Tennis de table"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "IA et Enseignement",
+      "summary": "Téléchargement en PDF",
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/ia-et-enseignement/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/ia-et-enseignement",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2026/02/image-IA-300x290.jpg",
+      "publishedAt": "2026-02-02T08:03:38.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.845Z",
+      "lastSeenAt": "2026-11-08T12:26:29.845Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [
+        "intelligence-artificielle"
+      ],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
+      ]
+    },
+    {
+      "sourceSlug": "nice",
+      "title": "SAVOIR ROULER A VELO",
+      "summary": null,
+      "originalUrl": "https://www.pedagogie.ac-nice.fr/eps/savoir-rouler-a-velo/",
+      "canonicalUrl": "https://www.pedagogie.ac-nice.fr/eps/savoir-rouler-a-velo",
+      "imageUrl": "https://www.pedagogie.ac-nice.fr/eps/wp-content/uploads/sites/20/2025/11/IMAGE-SAVOIR-ROULER-300x173.png",
+      "publishedAt": "2025-11-18T09:49:12.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:29.856Z",
+      "lastSeenAt": "2026-11-08T12:26:29.856Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Non classé"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Non classé"
       ]
     },
     {
@@ -4582,6 +5142,121 @@
         "cycle-4"
       ],
       "tags": []
+    },
+    {
+      "sourceSlug": "orleans-tours",
+      "title": "Produire une performance optimale, mesurable à une échéance donnée",
+      "summary": "Ressources Eduscol : Cycle 1 : Créer une dynamique d'apprentissage Objectif 1 Cycle 2 : Concevoir et mettre en œuvre Fiche de présentation des vidéos d'une séance d'activités athlétiques aménagées Vidéo 1 : l'interview de l'enseignant Vidéo 2 : la mise en place de la situation Vidéo 3 : l'activité des élèves Vidéo 4 : la régulation des apprentissages Vidéo 5 : le bilan et les perspectives Vidéo 6 :... Ressources…",
+      "originalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1414",
+      "canonicalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1414",
+      "imageUrl": "https://pedagogie.ac-orleans-tours.fr/local/cache-vignettes/L640xH360/2bc757f5ac148ad8ffb5b422a21688-08024.jpg?1791298943",
+      "publishedAt": "2024-09-14T13:22:00.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:32.808Z",
+      "lastSeenAt": "2026-11-08T12:26:32.808Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Ressources p&#233;dagogiques EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [],
+      "levels": [],
+      "tags": [
+        "Ressources p&#233;dagogiques EPS"
+      ]
+    },
+    {
+      "sourceSlug": "orleans-tours",
+      "title": "Adapter ses déplacements à des environnements variés",
+      "summary": "Ressources Eduscol : Cycle 1 : Créer une dynamique d'apprentissage Objectif 2 Cycle 2 : Concevoir et mettre en œuvre Cycle 3 : Ressources pour construire l'enseignement Programmer / évaluer en EPS : Cycle 1 : Programmation en TPS PS Trame d'écriture maternelle Fiche d'observation Cycles 1, 2 et 3 : Elaborer un projet pédagogique EPS d'école Enseignement de la natation : Enseigner la... Ressources pédagogiques EPS",
+      "originalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1312",
+      "canonicalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1312",
+      "imageUrl": "https://pedagogie.ac-orleans-tours.fr/local/cache-vignettes/L640xH360/ad1f53bbf7d715d5fe0a036abf50d8-218e6.jpg?1791296967",
+      "publishedAt": "2024-09-13T13:15:00.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:32.819Z",
+      "lastSeenAt": "2026-11-08T12:26:32.819Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Ressources p&#233;dagogiques EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [
+        "natation"
+      ],
+      "levels": [
+        "cycle-3"
+      ],
+      "tags": [
+        "Natation",
+        "Ressources p&#233;dagogiques EPS"
+      ]
+    },
+    {
+      "sourceSlug": "orleans-tours",
+      "title": "S'exprimer artistiquement",
+      "summary": "Ressources Eduscol : Cycle 1 : Créer une dynamique d'apprentissage Objectif 3 Cycle 2 : Concevoir et mettre en œuvre Fiche de présentation des vidéos d'une séance de danse Vidéo 1 : l'interview de l'enseignant Vidéo 2 : la mise en place de la situation Vidéo 3 : l'activité des élèves Vidéo 4 : la régulation des apprentissages Vidéo 5 : le bilan et les perspectives Vidéo 6 : les cinq moments clés en... Ressources…",
+      "originalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1416",
+      "canonicalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1416",
+      "imageUrl": "https://pedagogie.ac-orleans-tours.fr/local/cache-vignettes/L640xH360/5162a06bab70c2eeb0d4535cd612c7-a3ce3.jpg?1791298943",
+      "publishedAt": "2024-09-12T13:29:00.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:32.829Z",
+      "lastSeenAt": "2026-11-08T12:26:32.829Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Ressources p&#233;dagogiques EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [
+        "danse"
+      ],
+      "levels": [],
+      "tags": [
+        "Danse",
+        "Ressources p&#233;dagogiques EPS"
+      ]
+    },
+    {
+      "sourceSlug": "orleans-tours",
+      "title": "S'affronter de façon collective ou interindividuelle",
+      "summary": "Ressources Eduscol : Cycle 1 : Créer une dynamique d'apprentissage Objectif 4 Cycle 2 : Concevoir et mettre en œuvre Cycle 3 : Attendus de fin de Cycle 3 Programmer / évaluer en EPS : Cycle 1 : Programmation en TPS PS Trame d'écriture maternelle et fiche d'observation Cycles 1, 2 et 3 : Elaborer un projet pédagogique EPS d'école Handball Jeux traditionnels Jeux d'opposition Ultimate Tchoukball... Ressources…",
+      "originalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1415",
+      "canonicalUrl": "https://pedagogie.ac-orleans-tours.fr/spip.php?article1415",
+      "imageUrl": "https://pedagogie.ac-orleans-tours.fr/local/cache-vignettes/L640xH360/66a98ceb4053329272417374a46869-6b228.jpg?1791297814",
+      "publishedAt": "2024-09-11T13:27:00.000Z",
+      "modifiedAt": null,
+      "discoveredAt": "2026-11-08T12:26:32.838Z",
+      "lastSeenAt": "2026-11-08T12:26:32.838Z",
+      "contentType": "article",
+      "status": "published",
+      "guid": null,
+      "categories": [
+        "Ressources p&#233;dagogiques EPS"
+      ],
+      "classificationLocked": false,
+      "themes": [],
+      "apsas": [
+        "handball",
+        "ultimate"
+      ],
+      "levels": [
+        "cycle-3"
+      ],
+      "tags": [
+        "Handball",
+        "Ressources p&#233;dagogiques EPS",
+        "Ultimate"
+      ]
     },
     {
       "sourceSlug": "toulouse",
