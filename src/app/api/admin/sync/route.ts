@@ -1,3 +1,4 @@
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { runSync } from "@/collector/sync";
 import { verifySession, ADMIN_COOKIE } from "@/lib/auth-token";
@@ -15,6 +16,12 @@ export async function POST(request: Request) {
   const slug = typeof body.slug === "string" && /^[a-z0-9-]{2,64}$/.test(body.slug) ? body.slug : null;
   try {
     const summary = await runSync(await getRepository(), { slug });
+    // Sans ça, « À la une » reste sur le cache unstable_cache jusqu'à 5 min
+    // alors que « Ma veille » lit /api/publications en direct.
+    revalidateTag("journal");
+    revalidatePath("/");
+    revalidatePath("/sources");
+    revalidatePath("/recherche");
     return Response.json(summary);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Synchronisation impossible.";

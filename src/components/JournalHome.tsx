@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { unstable_cache } from "next/cache";
 import { FilterPanel } from "@/components/FilterPanel";
 import { Story } from "@/components/Story";
 import { formatDateTime } from "@/lib/dates";
@@ -9,30 +8,26 @@ import { countLabel } from "@/lib/format";
 import { getRepository } from "@/lib/app-db";
 import { RUBRICS } from "@/lib/taxonomy";
 
-const loadJournalHome = unstable_cache(
-  async () => {
-    const repo = await getRepository();
-    const [stats, recent, sources] = await Promise.all([
-      repo.stats(),
-      repo.listPublications({ page: 1, pageSize: 60, sort: "date" }),
-      repo.listSources(),
-    ]);
-    const featured = selectFeatured(recent.items);
-    const exclude = [featured.lead?.id, ...featured.secondary.map((item) => item.id)].filter((id): id is string => Boolean(id));
-    const rubricResults = await Promise.all(
-      RUBRICS.map(async (rubric) => ({ rubric, items: await repo.listRubric(rubric, 3, exclude) })),
-    );
-    return {
-      stats,
-      featured,
-      rubrics: rubricResults.filter((entry) => entry.items.length > 0),
-      enabledCount: sources.filter((source) => source.enabled).length,
-      sourceCount: sources.length,
-    };
-  },
-  ["journal-home"],
-  { revalidate: 300, tags: ["journal"] },
-);
+async function loadJournalHome() {
+  const repo = await getRepository();
+  const [stats, recent, sources] = await Promise.all([
+    repo.stats(),
+    repo.listPublications({ page: 1, pageSize: 60, sort: "date" }),
+    repo.listSources(),
+  ]);
+  const featured = selectFeatured(recent.items);
+  const exclude = [featured.lead?.id, ...featured.secondary.map((item) => item.id)].filter((id): id is string => Boolean(id));
+  const rubricResults = await Promise.all(
+    RUBRICS.map(async (rubric) => ({ rubric, items: await repo.listRubric(rubric, 3, exclude) })),
+  );
+  return {
+    stats,
+    featured,
+    rubrics: rubricResults.filter((entry) => entry.items.length > 0),
+    enabledCount: sources.filter((source) => source.enabled).length,
+    sourceCount: sources.length,
+  };
+}
 
 export async function JournalHome() {
   const { stats, featured, rubrics, enabledCount, sourceCount } = await loadJournalHome();
